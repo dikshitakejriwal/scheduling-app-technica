@@ -1,8 +1,10 @@
 class Task{
-    constructor(name, difficulity, priority){
+    constructor(name, difficulty, priority, subtasks, notes){
         this.name = name;
-        this.difficulity = difficulity;
+        this.difficulty = difficulty;
         this.priority = priority;
+        this.subtasks = subtasks;
+        this.notes = notes;
     }
 }
 
