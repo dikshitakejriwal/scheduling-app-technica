@@ -1,3 +1,4 @@
+
 class Task{
     constructor(name, difficulty, priority, subtasks, notes){
         this.name = name;
@@ -44,22 +45,24 @@ const blockArr = [];
 
 //Array that represent the times
 const timeLine = [];
-for(let i = 1; i <= 1440; i++){
+for(let i = 0; i < 1440; i++){
     timeLine[i] = 0
 }
 
 //adds a task to the taskArr
 function taskToArr(){
-    var name = document.getElementById("taskName");
-    var difficulty = document.getElementById("diff");
-    var priority = document.getElementById("priority");
-    var subtasks = document.getElementById("subtasks");
+    var name = document.getElementById("taskName").value;
+    var difficulty = parseInt(document.getElementById("diff").value);
+    var priority = parseInt(document.getElementById("priority").value);
+    var subtasks = parseInt(document.getElementById("subtasks").value);
     let newTask = new Task(name, difficulty, priority, subtasks);
     taskArr.push(newTask);
 }
 
 //takes all the data and creates the schedule 
 function addBlocks(){
+    console.log("in addBlocks()")
+    
     addBlock();
     addTasks();
     sortBlocks(blockArr);
@@ -68,10 +71,14 @@ function addBlocks(){
     let endcount = 0;
     let blockCounter = 0;
     var newText;
+    let indexNum;
+
+    console.log(timeLine)
 
     for(let i = 0; i < 1440; i++){
         //create an event using the number in timeLine[i - 1] to know what type of block it is
-        if(timeLine > 0 && timeLine[i] != timeline[i - 1]){
+        if(i > 0 && timeLine[i] != timeLine[i - 1]){
+            console.log("In if statement. i = " + i + ", timeline[i-1] = " + timeLine[i-1])
                 endcount = i - 1;
             //if its a -1 blockCounter will know which block it is based on blockArr index number
            if(timeLine[i - 1] == 0){
@@ -101,11 +108,15 @@ function addBlocks(){
 
             } else { // if it's a number > 0 the number will tell you which task in taskArr it is by priority number
                 for(let j = 0; j < taskArr.length; j++){
-                    if(taskArr[j].priority == timeline[i - 1]){
-                        let indexNum = j;
+                    console.log("timeline[i-1]=" + timeLine[i-1])
+                    if(taskArr[j].priority == timeLine[i - 1]){
+                        console.log("Inside priority if")
+                        indexNum = j;
                         break;
                     }
                 }
+                console.log(taskArr)
+                console.log(indexNum)
                 let taskName = taskArr[indexNum].name;
 
                 //create task Block
@@ -113,6 +124,7 @@ function addBlocks(){
                 newText.innerText = "Task";
                 document.getElementById("insert");
                 document.getElementById("insert").appendChild(newText);
+                console.log("CREATING TASK BLOCK")
             }
             startCount = i;
         }
@@ -127,7 +139,7 @@ function addTasks(){
         let tracker = 0;
         //finds next priority to put into the timeLine
         for(let order = 0; order < taskArr.length; order++){
-            if(taskArr[order].priority = i + 1){
+            if(taskArr[order].priority == i + 1){
                 tracker = order;
                 break;
             }
@@ -216,3 +228,4 @@ function addBlock (name, start, end) {
     }
 }
 }
+
