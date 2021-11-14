@@ -39,25 +39,55 @@ const blockArr = [];
 const timeLine = [];
 for(let i = 1; i <= 1440; i++){
     timeLine[i] = 0
-}function addBlocks(){
+}
+
+
+//adds a task to the taskArr
+function taskToArr(){
+    var name = document.getElementById("frm1");
+    var difficulty = document.getElementById("diff");
+    var priority = document.getElementById("frm1");
+    var subtasks = document.getElementById("frm1");
+    var notes = document.getElementById("notes");
+    let startTime = 0;
+    let endtime = 0;
+    let newTask = new Task("task 1", 4, 1, 3, "hello world", startTime, endtime);
+    taskArr.push(newTask);
+}
+
+//takes all the data and creates the schedule 
+function addBlocks(){
     let timeCounter = 0;
     let startCount = 0;
     let endcount = 0;
-    let blockCounter = 0
+    let blockCounter = 0;
 
     for(let i = 0; i < 1440; i++){
-        timeCounter++
+        //create an event using the number in timeLine[i - 1] to know what type of block it is
         if(timeLine > 0 && timeLine[i] != timeline[i - 1]){
-            //create an event using the number in timeLine[i - 1] to know what type of block it is
+                endcount = i - 1;
 
-            //if block blockCounter will know which block it is based on blockArr index number
-            // if task the number will tell you which task in taskArr it is by priority number
-            // if break block a break block will be added
+            //if its a -1 blockCounter will know which block it is based on blockArr index number
+            if(timeLine[i -1] == -1){
+                
+                //create unavailable Block
+                blockCounter++;
             
+            } else if(timeLine[i -1] == -2){ // if its a -2 a break block will be added
+                
+                //create break block
+
+            } else { // if it's a number > 0 the number will tell you which task in taskArr it is by priority number
+
+                //create task Block
+            }
+
+            startCount = i;
+            
+
         }
     }   
 }
-
 
 
 
