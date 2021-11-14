@@ -27,7 +27,8 @@ function taskToArr(){
     taskArr.push(newTask);
 }
 
-function pushBlock(){
+//adds a block to the blockArr
+function blockToArr(){
     const blockName = document.getElementById('blockName');
     const blockStartHour = document.getElementById('timefromhr');
     const blockStartMin = document.getElementById('timefrommin');
@@ -39,7 +40,10 @@ function pushBlock(){
     blockArr.push(newBlock);
 }
 
-
+//Sort the blocks array from the earliest to the latest
+function sortBlocks(blockArr){
+    blockArr.sort(function(a,b){return a.start - b.start});
+}
 
 //Array that represents the Tasks
 const taskArr = [];
