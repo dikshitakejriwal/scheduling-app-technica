@@ -1,2 +1,44 @@
+class Task{
+    constructor(name, difficulity, priority){
+        this.name = name;
+        this.difficulity = difficulity;
+        this.priority = priority;
+    }
+}
 
-addTask
+class Block{
+    constructor(name, strat, end){
+        this.name = name;
+        this.start = this.start;
+        this.end = this.end;
+    }
+}
+
+
+//Array that represent the times
+let timeLine = [];
+
+//Time calculator
+function time (hours, minutes){
+    return totalTime = hours*60 + minutes;
+}
+
+
+
+//Determining the times the user is not available
+function addBlock (name, start, end) {
+    let blockName = name;
+    let duration = end - start;
+    for(let i = start; i < duration; i++){
+        timeLine[i] = -1;
+    }
+}
+
+function addBreak(){
+    let counter = 0;
+    for (let i = 0; i < timeLine.length; i++){
+        if(timeLine[i] == 2){
+
+        }
+    }
+}
