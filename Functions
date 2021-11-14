@@ -27,6 +27,18 @@ function taskToArr(){
     taskArr.push(newTask);
 }
 
+function blockToArr(){
+    const blockName = document.getElementById();
+    const blockStartHour = document.getElementById();
+    const blockStartMin = document.getElementById();
+    const blockEndHour = document.getElementById();
+    const blockEndMin = document.getElementById();
+    const blockStart = time(blockStartHour, blockStartMin);
+    const blockEnd = time(blockEndHour, blockEndMin);
+    let newBlock = new Block(blockName, blockStart, blockEnd);
+    blockArr.push(newBlock);
+}
+
 
 
 //Array that represents the Tasks
