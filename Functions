@@ -131,12 +131,3 @@ function addBlock (name, start, end) {
         timeLine[i] = -1;
     }
 }
-
-function addBreak(){
-    let counter = 0;
-    for (let i = 0; i < timeLine.length; i++){
-        if(timeLine[i] == 2){
-
-        }
-    }
-}
