@@ -9,7 +9,7 @@
     
 </head>
 <body>
-    <div id = "insert" class="split left">
+    <div class="split left">
         <div class="task-wrapper">
             <header>Sample task 1</header>
             
@@ -45,8 +45,8 @@
                     <label for="subtasks">Subtasks: </label>
                         <input type="number" id="subtasks" name="subtasks" min="0" max="100">
 
-                    <br>
-                    <input type="submit" name="addtask" value="Add Task">
+                    <br><br>
+                    <button id="addtask">Add Task</button>
 
                     <br><br>
                 </div>
@@ -67,11 +67,11 @@
                         <input type="number" id="timetomin" name="timetomin" min="00" max="59"></span>
                 </div>
                 <br>
-                <input type="submit" name="addblock" value="Add Block">
+                <button id="addblock">Add Block</button>
             </div>
             <button id="submit">Create Schedule!</button>
         </div>
     </div>
-  <script src="script.js"></script>
+  <script src="Functions.js"></script>
 </body>
 </html>
