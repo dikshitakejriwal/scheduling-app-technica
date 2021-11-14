@@ -18,8 +18,66 @@
             </div>
         </div>
     </div>
-    <div class="split right"></div>
-  
+    <div class="split right">
+        <div class="form">
+            <header>Add a Task</header>
+            
+            <div class="body">
+                <input type="text" name="name" placeholder="Task Name: " size="12">
+                <br><br>
+                <label for="category">Task Category: </label>
+                <select name="category">
+                    <option selected="" value="Default">(Please select a category for your task)</option>
+                    <option value="academic">Academic</option>
+                    <option value="exercise">Exercise</option>
+                    <option value="volunteering">Volunteering</option>
+                    <option value="social">Social</option>
+                    <option value="other">Other</option>
+                    <option value="unavailable">Unavailable</option>
+                </select>
+                <br><br>
+
+                <label for="priority">Select Priority:</label>
+                <input type="radio" name="lowp" value="low" /><span>Low</span>
+                <input type="radio" name="medp" value="medium" /><span>Medium</span>
+                <input type="radio" name="highp" value="high" /><span>High</span>
+
+                <br><br>
+
+                <label for="timefrom">From: </label>
+                <input type="time" id="timefrom" name="timefrom">
+
+                <br>
+
+                <label for="timeto">To: </label>
+                <input type="time" id="timeto" name="timeto">
+                <p>(Please enter in military time)</p>
+
+                <label for="subtasks">Subtasks: </label>
+                <input type="number" id="subtasks" name="subtasks" min="0" max="100">
+
+                <br><br>
+
+                <label for="diff">Difficulty: </label>
+                <input type="number" id="diff" name="diff" min="1" max="5">
+
+                <br><br>
+
+                <label for="priority">Done Today?</label>
+                <input type="radio" name="dotoday" value="yes" /><span>Yes</span>
+                <input type="radio" name="dotoday" value="no" /><span>No</span>
+
+                <br><br>
+
+                <label for="notes">Notes:</label><br>
+                <textarea name="notes" id="notes"></textarea>
+
+                <br><br>
+
+                <input type="submit" name="submit" value="Submit">
+            </div>
+        </div>
+    </div>
   <script src="script.js"></script>
 </body>
 </html>
