@@ -16,6 +16,18 @@ class Block{
     }
 }
 
+//adds a task to the taskArr
+function taskToArr(){
+    var name = document.getElementById("frm1");
+    var difficulty = document.getElementById("diff");
+    var priority = document.getElementById("frm1");
+    var subtasks = document.getElementById("frm1");
+    var notes = document.getElementById("notes");
+    const newTask = New Task("task 1", 4, 1, 3, "hello world");
+}
+
+
+
 //Array that represents the Tasks
 const taskArr = [];
 
