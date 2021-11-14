@@ -1,0 +1,218 @@
+class Task{
+    constructor(name, difficulty, priority, subtasks, notes){
+        this.name = name;
+        this.difficulty = difficulty;
+        this.priority = priority;
+        this.subtasks = subtasks;
+        this.notes = notes;   
+    }
+}
+
+class Block{
+    constructor(name, start, end){
+        this.name = name;
+        this.start = start;
+        this.end = end;
+    }
+}
+
+//adds a block to the blockArr
+function blockToArr(){
+    const blockName = document.getElementById('blockName');
+    const blockStartHour = document.getElementById('timefromhr');
+    const blockStartMin = document.getElementById('timefrommin');
+    const blockEndHour = document.getElementById('timetohr');
+    const blockEndMin = document.getElementById('timetomin');
+    const blockStart = time(blockStartHour, blockStartMin);
+    const blockEnd = time(blockEndHour, blockEndMin);
+    let newBlock = new Block(blockName, blockStart, blockEnd);
+    blockArr.push(newBlock);
+}
+
+//Sort the blocks array from the earliest to the latest
+function sortBlocks(blockArr){
+    blockArr.sort(function(a,b){return a.start - b.start});
+}
+
+
+//Array that represents the Tasks
+const taskArr = [];
+
+//Array that represents the blocks
+const blockArr = [];
+
+
+//Array that represent the times
+const timeLine = [];
+for(let i = 1; i <= 1440; i++){
+    timeLine[i] = 0
+}
+
+//adds a task to the taskArr
+function taskToArr(){
+    var name = document.getElementById("taskName");
+    var difficulty = document.getElementById("diff");
+    var priority = document.getElementById("priority");
+    var subtasks = document.getElementById("subtasks");
+    let newTask = new Task(name, difficulty, priority, subtasks);
+    taskArr.push(newTask);
+}
+
+//takes all the data and creates the schedule 
+function addBlocks(){
+    addBlock();
+    addTasks();
+    sortBlocks(blockArr);
+   // let timeCounter = 0;
+    let startCount = 0;
+    let endcount = 0;
+    let blockCounter = 0;
+    var newText;
+
+    for(let i = 0; i < 1440; i++){
+        //create an event using the number in timeLine[i - 1] to know what type of block it is
+        if(timeLine > 0 && timeLine[i] != timeline[i - 1]){
+                endcount = i - 1;
+            //if its a -1 blockCounter will know which block it is based on blockArr index number
+           if(timeLine[i - 1] == 0){
+            newText = document.createElement("p");
+            newText.innerText = "EMPTY";
+            document.getElementById("insert");
+            document.getElementById("insert").appendChild(newText);
+           }else if(timeLine[i -1] == -1){
+                let name = blockArr[blockCounter].name;
+                
+                //create unavailable Block
+                newText = document.createElement("p");
+                newText.innerText = "Unavailable";
+                document.getElementById("insert");
+                document.getElementById("insert").appendChild(newText);
+
+                blockCounter++;
+            
+            } else if(timeLine[i -1] == -2){ // if its a -2 a break block will be added
+
+                 //create break block
+                newText = document.createElement("p");
+                newText.innerText = "Break";
+                document.getElementById("insert");
+                document.getElementById("insert").appendChild(newText);
+               
+
+            } else { // if it's a number > 0 the number will tell you which task in taskArr it is by priority number
+                for(let j = 0; j < taskArr.length; j++){
+                    if(taskArr[j].priority == timeline[i - 1]){
+                        let indexNum = j;
+                        break;
+                    }
+                }
+                let taskName = taskArr[indexNum].name;
+
+                //create task Block
+                newText = document.createElement("p");
+                newText.innerText = "Task";
+                document.getElementById("insert");
+                document.getElementById("insert").appendChild(newText);
+            }
+            startCount = i;
+        }
+    }   
+}
+
+
+
+// adds a task to the calendar 
+function addTasks(){
+    for(let i = 0; i < taskArr.length; i++){
+        let tracker = 0;
+        //finds next priority to put into the timeLine
+        for(let order = 0; order < taskArr.length; order++){
+            if(taskArr[order].priority = i + 1){
+                tracker = order;
+                break;
+            }
+        }
+
+        let time = 0;
+    //sets the base time based on the difficulty amount
+    if(taskArr[tracker].difficulty == 1){
+        time = 20;
+    } else if(taskArr[tracker].difficulty == 2){
+        time = 30;
+    } else if (taskArr[tracker].difficulty == 3){
+        time = 40;
+    } else if (taskArr[tracker].difficulty == 4){
+        time = 50;
+    } else{
+        time = 60;
+    }
+
+    time = time * taskArr[tracker].subtask;
+    let breakCount = 0;
+
+    //goes through the timeLine array and changes the values of the number to represent what should go in that time block
+    // 0 - empty minute
+    // -1 - unavailable block
+    // -2 - break block 
+    // 1 - priority 1 task 
+    // ect. - priority etc. task
+    for(let j = 0; j <= 1440; j++){
+        //adds task of priority # into empty minutes
+        if(timeLine[j] == 0){
+            time -= 1; // keeps track of how many minutes have been allocated into the timeline
+            breakCount++; // keeps track of when breaks are needed
+            timeLine[j] = i + 1; 
+
+            //if time = 0 then task is over and as much time is available until a block is provided
+            if(time == 0){
+                for(let k = 1; k <= 30; k++){
+                    j++;
+                    if(j > 1440 || timeLine[j] != 0){
+                    j--;
+                    break;
+                    }
+                    timeLine[j] = -2;
+                }
+                break;
+            } else if (breakCount == 30){
+                //if breakCount is 30 then a 5 minute break is needed
+                for(let k = 1; k <= 5; k++){
+                    j++;
+                    if(j > 1440 || timeLine[j] != 0){
+                    j--;
+                    break;
+                    }
+                    timeLine[j] = -2;
+                }
+            }
+        } else{ 
+            //this indicates there has been a break in 0's in the time line
+            // breaks are only had after 30 c0nsecutive 0's
+            breakCount = 0;
+        }
+
+    }
+}
+}
+
+// takes index and returns a time;
+function indexToTime(index){
+
+}
+
+//Time calculator, returns time in minutes which represents the index
+function time (hours, minutes){
+    return totalTime = hours*60 + minutes;
+}
+
+
+//Determining the times the user is not available
+function addBlock (name, start, end) {
+    for(let j = 0; j < blockArr.length; j++){
+    let blockName = blockArr[j].name;
+    let duration = blockArr[j].end - blockArr[j].start;
+    for(let i = blockArr[j].start; i < duration; i++){
+        timeLine[i] = -1;
+    }
+}
+}
