@@ -28,22 +28,77 @@ for(let i = 1; i <= 1440; i++){
 
 
 // adds a task to the calendar 
-let time = 0;
-function addTask(name, priority, dotoday, subtask, difficulty, time, start, end){
-if(difficulty = 1){
+function addTasks(){
+    for(let i = 0; i < taskArr.length; i++){
+        let tracker = 0;
+        //finds next priority to put into the timeLine
+        for(let order = 0; order < taskArr.length; order++){
+            if(taskArr[order].priority = i + 1){
+                tracker = order;
+                break;
+            }
+        }
+
+        let time = 0;
     //sets the base time based on the difficulty amount
-    if(difficulty == 1){
+    if(taskArr[tracker].difficulty == 1){
         time = 20;
-    } else if(difficulty == 2){
+    } else if(taskArr[tracker].difficulty == 2){
         time = 30;
-    } else if (difficulty == 3){
+    } else if (taskArr[tracker].difficulty == 3){
         time = 40;
-    } else if (difficulty == 4){
+    } else if (taskArr[tracker].difficulty == 4){
         time = 50;
     } else{
         time = 60;
     }
+
     time = time * subtask;
+    let breakCount = 0;
+
+    //goes through the timeLine array and changes the values of the number to represent what should go in that time block
+    // 0 - empty minute
+    // -1 - unavailable block
+    // -2 - break block 
+    // 1 - priority 1 task 
+    // ect. - priority etc. task
+    for(let j = 0; j <= 1440; i++){
+        //adds task of priority # into empty minutes
+        if(timeLine[j] == 0){
+            time -= 1; // keeps track of how many minutes have been allocated into the timeline
+            breakCount++; // keeps track of when breaks are needed
+            timeLine[j] = i + 1; 
+
+            //if time = 0 then task is over and as much time is available until a block is provided
+            if(time == 0){
+                for(let k = 1; k <= 30; k++){
+                    j++;
+                    if(j > 1440 || timeLine[j] != 0){
+                    j--;
+                    break;
+                    }
+                    timeLine[j] = -2;
+                }
+                break;
+            } else if (breakCount == 30){
+                //if breakCount is 30 then a 5 minute break is needed
+                for(let k = 1; k <= 5; k++){
+                    j++;
+                    if(j > 1440 || timeLine[j] != 0){
+                    j--;
+                    break;
+                    }
+                    timeLine[j] = -2;
+                }
+            }
+        } else{ 
+            //this indicates there has been a break in 0's in the time line
+            // breaks are only had after 30 c0nsecutive 0's
+            breakCount = 0;
+        }
+
+    }
+}
 }
 
 
